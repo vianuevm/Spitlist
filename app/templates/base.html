@@ -1,0 +1,33 @@
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+        <meta id="viewport" name="viewport">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--need an icon, add later-->
+        
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+		<meta name="description" content="183style is a style grader for EECS 183, University of Michigan's intoductory computer science course.">
+		<meta name="keywords" content="183style EECS CS 183 Computer Science style grader electrical engineering umich michigan university lsa coe">
+        <title>SpitList</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+        <script src="/static/behavior/konami.js"></script>
+        <script src="/static/behavior/scripts.js"></script>
+        <link href="/static/presentation/base.css" rel="stylesheet">
+	</head>
+  <body>
+
+    <div class="container" id="main-container">
+	    <div class="navigation">
+			<h3 class="masthead-brand">SpitList</h3>
+	    <div>
+	        {% block content %}{% endblock %}
+	    </div>
+    </div>
+    <script src="/static/behavior/bootstrap.min.js"></script>
+  </body>
+</html>
