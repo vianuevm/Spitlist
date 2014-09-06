@@ -12,3 +12,4 @@ cpplint
 pyparsing
 pytest
 sqlalchemy
+flask-sqlalchemy
