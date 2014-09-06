@@ -1,5 +1,5 @@
 
-
+/*
 body
 {
   background: url(../img/seal.jpg) no-repeat center center fixed;
@@ -7,4 +7,9 @@ body
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+*/
+
+input {
+	color: black;
 }
