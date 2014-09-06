@@ -8,11 +8,11 @@
      <br/> 
      <ul class="list-inline">
 	     <li>
-	     	<button type="button" ng-click="addTodo(newItem)" w-mousetrap="{'shift+k': addTodo}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
+	     	<button type="button" ng-click="addTodo(newItem)" w-mousetrap="{'c': addTodo}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
 
 	     </li>
 	      <li>
-		      <button type="button" ng-click="deleteTodo(newItem)" w-mousetrap="{'shift+Date': deleteTodo}"  class="btn btn-danger btn-default">
+		      <button type="button" ng-click="deleteTodo(newItem)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-danger btn-default">
 			  <span class="glyphicon glyphicon-minus"></span></button>
 
 		  </li>
@@ -21,24 +21,32 @@
 			  <span class="glyphicon glyphicon-tint"></span></button>
 
 		 </li>
+		 <li>
+	 	   <div class="btn-group" ng-model='sortOrder'>
+			  <button type="button" value='date' class="btn btn-sm">Date</button>
+			  <button type="button" value='starred' class="btn btn-sm">Starred</button>
+			</div>
+		 </li>
 	</ul>
 
     </fieldset
   </form>
+
   <table class="table">
     <thead>
       <th>Task</th>
       <th>Due Date</th>
       <th> Pop </th>
       <th> Edit </th>
+  
     </thead> 
     <tbody>
-      <tr ng-repeat="item in todoList">
+      <tr ng-repeat="item in todoList | orderBy: 'date'">
         <td>{{ item.desc }}</td>
-        <td>{{ item.dueDate }}</td>
-        <td><button type="button" ng-click="deleteSpecificTodo(todoList, $index)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-danger btn-default">
+        <td>{{item.date | date}}</td>
+        <td><button type="button" ng-click="deleteSpecificTodo(todoList, $index)"  class="btn btn-danger btn-default">
 			  <span class="glyphicon glyphicon-minus"></span></button> </td>
-		  <td><button type="button" ng-click="deleteSpecificTodo(todoList, $index)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-success btn-default">
+		  <td><button type="button" ng-click="deleteSpecificTodo(todoList, $index)"  class="btn btn-success btn-default">
 		  <span class="glyphicon glyphicon-edit"></span></button> </td>
       </tr>
     </tbody>

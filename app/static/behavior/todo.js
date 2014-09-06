@@ -12,12 +12,24 @@ app.controller('TodoController', [
 	'$scope',
 	'$http',
 	function($scope, $http) {
-
+		$scope.sortOrder = 'date';
 		$scope.newItem = "Starter";
 		$scope.todoList = [
 			{
 				'desc' : 'Pick up a panda',
-				'dueDate' : 'Yesterday'
+				'date' : new Date('12/23/2015')
+			},
+			{
+				'desc' : 'Pick up a panda',
+				'date' : new Date('12/23/2013')
+			},
+			{
+				'desc' : 'Pick up a panda',
+				'date' : new Date('12/23/2018')
+			},
+			{
+				'desc' : 'Pick up a panda',
+				'date' : new Date('12/23/2011')
 			}
 		];
 		$scope.colorCounter = 0;
@@ -46,12 +58,15 @@ app.controller('TodoController', [
 			}
 		};
 
+
+
 		$scope.addTodo = function() {
 			$scope.taskId++;
 			$scope.todoList.push(
 				{
 					'desc' : $scope.newItem,
-					'dueDate' : 'now'				}
+					'date' : new Date('12/23/2001')
+				}
 			);
 		};
 

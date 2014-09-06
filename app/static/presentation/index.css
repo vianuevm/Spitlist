@@ -1,5 +1,5 @@
 
-/*
+
 body
 {
   background: url(../img/seal.jpg) no-repeat center center fixed;
@@ -8,8 +8,12 @@ body
   -o-background-size: cover;
   background-size: cover;
 }
-*/
+
 
 input {
+	color: black;
+}
+
+select {
 	color: black;
 }
