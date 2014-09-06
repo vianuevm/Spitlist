@@ -3,5 +3,5 @@
 # Except this file
 !.gitignore
 
-venv
+ENV
 *.pyc

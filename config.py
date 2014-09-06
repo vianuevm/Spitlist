@@ -12,7 +12,6 @@ CSRF_ENABLED = True
 SECRET_KEY = 'dogeIsMasterOfTheUniverse'
 
 UPLOAD_FOLDER = '/uploads'
-ALLOWED_EXTENSIONS = set(['cpp', 'h'])
 OPENID_PROVIDERS = [
     { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
     { 'name': 'Yahoo', 'url': 'https://me.yahoo.com' },
