@@ -75,6 +75,16 @@
                     console.log("Successfully " + task_id + " deleted");
                 });
             }
+
+            function mark(is_complete) {
+                var task_id = parseFloat(window.prompt("Which task?"));
+                $.post('mark', {
+                    task_id: task_id,
+                    is_complete: is_complete ? is_complete : ""
+                }).done(function(success) {
+                    console.log("Successfully marked task " + task_id + " as " + (is_complete ? "complete" : "incomplete"));
+                });
+            }
         </script>
 	</head>
   <body>
