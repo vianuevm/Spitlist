@@ -11,6 +11,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 CSRF_ENABLED = True
 SECRET_KEY = 'dogeIsMasterOfTheUniverse'
 
+<<<<<<< HEAD
 UPLOAD_FOLDER = '/uploads'
 OPENID_PROVIDERS = [
     { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
@@ -18,3 +19,5 @@ OPENID_PROVIDERS = [
     { 'name': 'AOL', 'url': 'http://openid.aol.com/<username>' },
     { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
     { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }]
+=======
+>>>>>>> aefa9f0a7a8ad1e72b5d995e4bdb9411fd44302c
