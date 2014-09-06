@@ -1,0 +1,46 @@
+<navtabs page-name="state.pageName"></navtabs>
+<div ng-enter class="paddinglr10">
+  <h1>SpitList</h1>
+  <form ng-submit="addItem()">
+    <fieldset>
+     <input STYLE="background-color= #333" ng-enter type="text" size=50 ng-model="newItem" />
+     <br/>
+     <br/> 
+     <ul class="list-inline">
+	     <li>
+	     	<button type="button" ng-click="addTodo(newItem)" w-mousetrap="{'shift+k': addTodo}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
+
+	     </li>
+	      <li>
+		      <button type="button" ng-click="deleteTodo(newItem)" w-mousetrap="{'shift+Date': deleteTodo}"  class="btn btn-danger btn-default">
+			  <span class="glyphicon glyphicon-minus"></span></button>
+
+		  </li>
+		  <li>
+			  <button type="button" ng-click="changeColor()" w-mousetrap="{'shift+c': changeColor}"  class="btn btn-warning">
+			  <span class="glyphicon glyphicon-tint"></span></button>
+
+		 </li>
+	</ul>
+
+    </fieldset
+  </form>
+  <table class="table">
+    <thead>
+      <th>Task</th>
+      <th>Due Date</th>
+      <th> Pop </th>
+      <th> Edit </th>
+    </thead> 
+    <tbody>
+      <tr ng-repeat="item in todoList">
+        <td>{{ item.desc }}</td>
+        <td>{{ item.dueDate }}</td>
+        <td><button type="button" ng-click="deleteSpecificTodo(todoList, $index)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-danger btn-default">
+			  <span class="glyphicon glyphicon-minus"></span></button> </td>
+		  <td><button type="button" ng-click="deleteSpecificTodo(todoList, $index)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-success btn-default">
+		  <span class="glyphicon glyphicon-edit"></span></button> </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
