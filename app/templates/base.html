@@ -26,6 +26,7 @@
                     console.log(tasks);
                 });
             }
+
         	function create(user_id) {
         		$.post('/create', {
                     description: 'description',
@@ -36,6 +37,15 @@
         			console.log(task);
         		});
         	}
+
+            function delete_task() {
+                var task_id = parseFloat(window.prompt("Which task?"));
+                $.post('/delete', {
+                    task_id: task_id,
+                }).done(function(success) {
+                    console.log("Successfully " + task_id + " deleted");
+                });
+            }
         </script>
 	</head>
   <body>
