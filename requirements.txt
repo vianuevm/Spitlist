@@ -13,3 +13,4 @@ pyparsing
 pytest
 sqlalchemy
 flask-sqlalchemy
+migrate-sqlalchemy

@@ -1,4 +1,4 @@
-
+    
 <html>
 
 	<head>
@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!--need an icon, add later-->
-        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
 		<meta name="description" content="183style is a style grader for EECS 183, University of Michigan's intoductory computer science course.">
 		<meta name="keywords" content="183style EECS CS 183 Computer Science style grader electrical engineering umich michigan university lsa coe">
@@ -29,8 +29,53 @@
         <link href="/static/behavior/PageTransitions/css/component.css" rel="stylesheet">
         <link href="/static/behavior/PageTransitions/css/default.css" rel="stylesheet">
         <link href="/static/behavior/PageTransitions/css/multilevelmenu.css" rel="stylesheet">
+        <script>
+            function get_tasks(user_id) {
+                $.post('/get_tasks', {
+                    user_id: user_id
+                }).done(function(tasks) {
+                    console.log(tasks);
+                });
+            }
 
+        	function create(user_id) {
+        		$.post('/create', {
+                    description: 'description',
+                    due_date: new Date().getTime() / 1000,
+                    is_complete: 1,
+        			user_id: user_id
+        		}).done(function(task) {
+        			console.log(task);
+        		});
+        	}
+            function edit_description(task_id, description) {
+                 $.post('/edit_description', {
+                    task_id: task_id,
+                    description: description
+                }).done(function(description) {
+                    console.log('Edit successful');
+                    console.log(description)
+                });
+            }
+            function move_date(task_id, new_date) {
+                 $.post('/move_date', {
+                    task_id: task_id,
+                    new_date: new Date().getTime() / 1000
+                }).done(function(new_date) {
+                    console.log('Date moved to ');
+                    console.log(new_date);
+                });
+            }
 
+            function delete_task() {
+                var task_id = parseFloat(window.prompt("Which task?"));
+                $.post('/delete', {
+                    task_id: task_id,
+                }).done(function(success) {
+                    console.log("Successfully " + task_id + " deleted");
+                });
+            }
+        </script>
 	</head>
   <body>
 
