@@ -63,14 +63,15 @@
                     new_date: new Date().getTime() / 1000
                 }).done(function(new_date) {
                     console.log('Date moved to ');
-                    console.log(new_date);
+                    float_date = parseFloat(new_date)
+                    console.log(new Date(float_date));
                 });
             }
 
             function delete_task() {
                 var task_id = parseFloat(window.prompt("Which task?"));
                 $.post('/delete', {
-                    task_id: task_id,
+                    task_id: task_id
                 }).done(function(success) {
                     console.log("Successfully " + task_id + " deleted");
                 });
@@ -83,6 +84,17 @@
                     is_complete: is_complete ? is_complete : ""
                 }).done(function(success) {
                     console.log("Successfully marked task " + task_id + " as " + (is_complete ? "complete" : "incomplete"));
+                });
+            }
+
+            function next_week(task_id, due_date) {
+                $.post('/next_week', {
+                    task_id: task_id,
+                    due_date: new Date().getTime() / 1000
+                }).done(function(new_date) {
+                    console.log("Task pushed til next week: ");
+                    float_date = parseFloat(new_date)
+                    console.log(new Date(float_date));
                 });
             }
         </script>
