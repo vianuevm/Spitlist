@@ -51,3 +51,11 @@ def move_date():
 	task.due_date = datetime.fromtimestamp(float(request.form['new_date']))
 	db.session.commit()
 	return jsonify(task=task.serialize())
+
+@app.route('/delete', methods=['POST'])
+def delete():
+	task = models.Task.query.filter(models.Task.task_id == request.form['task_id']).first()
+	db.session.delete(task)
+	db.session.commit()
+	return jsonify(success=True)
+
