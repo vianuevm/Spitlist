@@ -10,7 +10,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(65))
     email = db.Column(db.String(120), unique = True)
-    tasks = db.relationship('Task')
+    tasks = db.relationship('Task', backref = 'tasks', )
 
     def is_authenticated(self):
         return True
@@ -27,6 +27,14 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.name)
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'tasks': self.tasks,
+        }
+
 class Task(db.Model):
     __tablename__ = 'task'
     task_id = db.Column(db.Integer, primary_key = True)
@@ -36,6 +44,15 @@ class Task(db.Model):
     timestamp = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-
     def __repr__(self):
         return '<Task %r>' % (self.due_date)
+
+    def serialize(self):
+        return {
+            'task_id': self.task_id,
+            'description': self.description,
+            'due_date': self.due_date,
+            'is_complete': self.is_complete,
+            'timestamp': self.timestamp,
+            'user_id': self.user_id,
+        }
