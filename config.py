@@ -7,6 +7,7 @@ else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+DEBUG = True
 
 CSRF_ENABLED = True
 SECRET_KEY = 'dogeIsMasterOfTheUniverse'
