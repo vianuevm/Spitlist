@@ -33,6 +33,21 @@ def create():
 		is_complete=is_complete,
 		user_id=user_id,
 		due_date=due_date)
+	print task.due_date
 	db.session.add(task)
+	db.session.commit()
+	return jsonify(task=task.serialize())
+
+@app.route('/edit_description', methods=['POST'])
+def edit():
+	task = models.Task.query.filter(models.Task.task_id == request.form['task_id'] ).first()
+	task.description = request.form['description']
+	db.session.commit()
+	return task.description
+
+@app.route('/move_date', methods=['POST'])
+def move_date():
+	task = models.Task.query.filter(models.Task.task_id == request.form['task_id'] ).first()
+	task.due_date = datetime.fromtimestamp(float(request.form['new_date']))
 	db.session.commit()
 	return jsonify(task=task.serialize())

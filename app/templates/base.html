@@ -1,4 +1,4 @@
-
+    
 <html>
 
 	<head>
@@ -36,6 +36,24 @@
         			console.log(task);
         		});
         	}
+            function edit_description(task_id, description) {
+                 $.post('/edit_description', {
+                    task_id: task_id,
+                    description: description
+                }).done(function(description) {
+                    console.log('Edit successful');
+                    console.log(description)
+                });
+            }
+            function move_date(task_id, new_date) {
+                 $.post('/move_date', {
+                    task_id: task_id,
+                    new_date: new Date().getTime() / 1000
+                }).done(function(new_date) {
+                    console.log('Date moved to ');
+                    console.log(new_date);
+                });
+            }
         </script>
 	</head>
   <body>
