@@ -182,7 +182,8 @@ app.directive('ngEnter', function () {
 						'description' : $scope.item_description,
 						'due_date' : $scope.new_date
 					});
-
+                	$scope.item_description = "";
+                	$scole.new_date = "";
                 });
                 event.preventDefault();
             } else {
