@@ -76,3 +76,10 @@ def next_week():
 	javascript_time = time.mktime(task.due_date.timetuple()) * 1000
 	db.session.commit()
 	return str(javascript_time)
+
+@app.route('/star', methods=['POST'])
+def star():
+	task = models.Task.query.filter(models.Task.task_id == request.form['task_id']).first()
+	task.starred = not task.starred
+	db.session.commit()
+	return str(task.starred)
