@@ -16,28 +16,6 @@ app.controller('TodoController', [
 		$scope.inside = false;
 		$scope.sortOrder = 'date';
 		$scope.newItem = "";
-		
-		// $http.get('/get_tasks').success(function(data, status, headers, config){
-		// 	if(data.success){
-		// 		$scope.todoList = data.todoList;
-		// 	} else {
-		// 		windowAlert('Retrieval Failed');
-		// 	}
-		// });
-
-
-	    $http
-	            .post('/get_tasks')
-	            .success(function(data, status, headers, config) {
-	                if (data.success) {
-	                    $scope.state.todoList = data.todoList;
-	                } else {
-	                    alert('Retrieval failed');
-	                }
-	            })
-	            .error(function(data, status, headers, config) {
-	                alert("Retrieval failed");
-	            });
 
 		$scope.todoList = [
 			{
