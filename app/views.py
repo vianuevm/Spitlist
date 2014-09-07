@@ -66,13 +66,23 @@ def get_tasks():
 	if session['user_id'] == "":
 		return jsonify(tasks=[])
 	tasks = models.Task.query.filter(models.Task.user_id == session['user_id'])
+	for task in tasks:
+		if task.due_date != None:
+			javascript_time = time.mktime(task.due_date.timetuple()) * 1000
+			print javascript_time
+		# print task.due_date
+		# task.due_date = datetime.fromtimestamp(javascript_time/1000)
+		print task.due_date
 	return jsonify(tasks=[task.serialize() for task in tasks])
 
 @app.route('/create', methods=['POST'])
 def create():
 	args = json.loads(request.data)
 	timestamp = datetime.utcnow()
-	due_date = datetime.fromtimestamp(float(args['due_date']))
+	if 'due_date' in args:
+		due_date = datetime.fromtimestamp(float(args['due_date']))
+	else:
+		due_date = None
 	is_complete = args['is_complete']
 	user_id = session['user_id']
 	description = args['description']
@@ -82,6 +92,8 @@ def create():
 		is_complete=is_complete,
 		user_id=user_id,
 		due_date=due_date)
+	print " this is the due date"
+	print task.due_date
 	db.session.add(task)
 	db.session.commit()
 	return jsonify(task_id=task.task_id)

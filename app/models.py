@@ -39,7 +39,7 @@ class Task(db.Model):
     __tablename__ = 'task'
     task_id = db.Column(db.Integer, primary_key = True)
     description = db.Column(db.String(65))
-    due_date = Column(DateTime, default=func.now())
+    due_date = Column(DateTime, default=None)
     is_complete = db.Column(db.SmallInteger, default = False)
     starred = db.Column(db.SmallInteger, default = False)
     timestamp = db.Column(db.DateTime)
