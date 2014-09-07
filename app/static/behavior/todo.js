@@ -17,6 +17,7 @@ app.factory('srvLibrary', ['$http', function($http) {
 	var sdo = {
 		getTasks: function() {
 			var promise = $http.get('/get_tasks').success(function(data, status, headers, config) {
+               	console.dir(data);
                	return data;
 			});
 			return promise;
@@ -41,6 +42,46 @@ app.controller('TodoController', [
 			$('input').focus();
 			$scope.newItem = "";
 			$scope.inside = true;
+		};
+
+		$scope.edit_desciption = function() {
+			var div = document.activeElement;
+			var task_id = parseInt(div.getAttribute('task-id'));
+			if(!task_id)
+				return;
+			$http
+				.post('/edit_description', {
+					task_id : task_id,
+					description : description
+				})
+				.success(function(data) {
+					console.log ("Success: " + task_id + " edited")
+				})
+			}	
+		}
+		$scope.next_week = function(){
+			var div = document.activeElement;
+			var task_id = parseInt(div.getAttribute('task-id'));
+			if (!task_id)
+				return;
+			$http.post('/next_week', {
+				task_id: task_id
+			}).success(function(new_date) {
+                console.log("Task pushed til next week: ");
+                float_date = parseFloat(new_date)
+                console.log(new Date(float_date));
+			});
+		};
+		$scope.star = function(){
+			var div = document.activeElement;
+			var task_id = parseInt(div.getAttribute('task-id'));
+			if (!task_id)
+				return;
+			$http.post('/star', {
+				task_id: task_id
+			}).success(function(starred) {
+				console.log("star date toggled: " + starred)
+			});
 		};
 
 		$scope.changeColor = function() {
