@@ -121,10 +121,15 @@ app.controller('TodoController', [
 				$scope.todoList.push({
 					'description': item_description,
 					'due_date' : new_date,
-					'task_id' : $scope.task_id
+					'task_id' : $scope.task_id,
 				});
 			});
 		};
+
+		$scope.create = function() {
+			var todolist = document.getElementById("todolist-container");
+			$scope.todoList.push({});
+		}	
 
 		$scope.deleteTodo = function(){
 			var div = document.activeElement;
@@ -138,8 +143,23 @@ app.controller('TodoController', [
 			});
 		};
 
-		$scope.deleteSpecificTodo = function(todoList, index) {
-			todoList.splice(index, 1);
+		$scope.mark = function() {
+			var div = document.activeElement;
+			var task_id = parseInt(div.getAttribute('task-id'));
+			if (!task_id)
+				return;
+			var checkbox = document.activeElement.firstElementChild.firstElementChild;
+			checkbox.checked = checkbox.checked ? false : true;
+			$http.post('/mark', {
+				task_id: task_id,
+				is_complete: checkbox.checked
+			}).success(function(data, status, headers, config) {
+				if(data.complete) {
+					div.className += " faded";
+				} else if (!data.complete) {
+					div.className = "todolist-item-container clearfix";
+				}
+			});
 		};
 	}]);
 
@@ -151,10 +171,6 @@ app.controller('TodoItemController', ['$scope', function($scope) {
 
 	this.submit = function() {
 		this.editing = false;
-	};
-
-	this.isEditing = function() {
-		return this.editing;
 	};
 }]);
 

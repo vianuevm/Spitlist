@@ -9,7 +9,7 @@
      <br/> 
      <ul class="list-inline">
 	     <li>
-	     	<button type="button" ng-click="addTodo(item_description, new_date)" w-mousetrap="{'c': addTodo}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
+	     	<button type="button" ng-click="addTodo(item_description, new_date)" w-mousetrap="{'c': create}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
 
 	     </li>
 	      <li>
@@ -34,7 +34,7 @@
   </form>
   <div class="table">
     <div>
-      <div ng-repeat="item in todoList | orderBy: 'date'">
+      <div id="todolist-container" ng-repeat="item in todoList | orderBy: 'date'">
         <todo-item></todo-item>
       </div>
     </div>

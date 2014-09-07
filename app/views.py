@@ -111,10 +111,11 @@ def delete():
 
 @app.route('/mark', methods=['POST'])
 def mark():
-	task = models.Task.query.filter(models.Task.task_id == request.form['task_id']).first()
-	task.is_complete = bool(request.form["is_complete"])
+	args = json.loads(request.data)
+	task = models.Task.query.filter(models.Task.task_id == args['task_id']).first()
+	task.is_complete = bool(args["is_complete"])
 	db.session.commit()
-	return jsonify(success=True)
+	return jsonify(complete=task.is_complete)
 
 @app.route('/next_week', methods=['POST'])
 def next_week():
