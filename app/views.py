@@ -103,7 +103,8 @@ def move_date():
 
 @app.route('/delete', methods=['POST'])
 def delete():
-	task = models.Task.query.filter(models.Task.task_id == request.form['task_id']).first()
+	args = json.loads(request.data)
+	task = models.Task.query.filter(models.Task.task_id == args['task_id']).first()
 	db.session.delete(task)
 	db.session.commit()
 	return jsonify(success=True)

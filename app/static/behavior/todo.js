@@ -86,7 +86,15 @@ app.controller('TodoController', [
 		};
 
 		$scope.deleteTodo = function(){
-			$scope.todoList.pop();
+			var div = document.activeElement;
+			var task_id = parseInt(div.getAttribute('task-id'));
+			if (!task_id)
+				return;
+			$http.post('/delete', {
+				task_id: task_id
+			}).success(function(data, status, headers, config) {
+				div.parentNode.removeChild(div);
+			});
 		};
 
 		$scope.deleteSpecificTodo = function(todoList, index) {
