@@ -10,7 +10,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(65))
     email = db.Column(db.String(120), unique = True)
-    tasks = db.relationship('Task', backref = 'tasks', )
+    tasks = db.relationship('Task', backref = 'author', lazy = 'dynamic')
 
     def is_authenticated(self):
         return True
@@ -32,7 +32,7 @@ class User(db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'tasks': self.tasks,
+            'tasks': self.tasks
         }
 
 class Task(db.Model):
@@ -41,6 +41,7 @@ class Task(db.Model):
     description = db.Column(db.String(65))
     due_date = Column(DateTime, default=func.now())
     is_complete = db.Column(db.SmallInteger, default = False)
+    starred = db.Column(db.SmallInteger, default = False)
     timestamp = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -52,6 +53,7 @@ class Task(db.Model):
             'task_id': self.task_id,
             'description': self.description,
             'due_date': self.due_date,
+            'starred': self.starred,
             'is_complete': self.is_complete,
             'timestamp': self.timestamp,
             'user_id': self.user_id,

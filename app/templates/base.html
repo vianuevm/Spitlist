@@ -97,6 +97,14 @@
                     console.log(new Date(float_date));
                 });
             }
+            function star(task_id, starred) {
+                $.post('/star', {
+                    task_id: task_id,
+                    starred: starred
+                }).done(function(starred) {
+                    console.log("task starred state is:" + starred)
+                });
+            }
         </script>
 	</head>
   <body>
