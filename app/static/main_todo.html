@@ -18,7 +18,7 @@
 
 		  </li>
 		  <li>
-			  <button type="button" ng-click="changeColor()" w-mousetrap="{'shift+c': changeColor}"  class="btn btn-warning">
+			  <button type="button" ng-click="changeColor()" w-mousetrap="{'shift+c': changeColor}" class="btn btn-warning">
 			  <span class="glyphicon glyphicon-tint"></span></button>
 
 		 </li>
@@ -34,7 +34,7 @@
   </form>
   <div class="table">
     <div>
-      <div id="todolist-container" ng-repeat="item in todoList | orderBy: 'date'">
+      <div id="todolist-container" w-mousetrap="{'j': next, 'k': prev, 'esc': unfocus}" ng-repeat="item in todoList | orderBy: 'date'">
         <todo-item></todo-item>
       </div>
     </div>

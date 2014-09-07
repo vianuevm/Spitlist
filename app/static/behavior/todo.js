@@ -161,6 +161,31 @@ app.controller('TodoController', [
 				}
 			});
 		};
+
+		$scope.current_focus = 0;
+
+		$scope.next = function() {
+			var list = $('todo-item .todolist-item-container');
+			$scope.current_focus += 1;
+			if ($scope.current_focus >= list.size()) {
+				$scope.current_focus = 0;
+			}
+			list[$scope.current_focus].focus();
+		}
+
+		$scope.prev = function() {
+			var list = $('todo-item .todolist-item-container');
+			$scope.current_focus -= 1;
+			if ($scope.current_focus < 0) {
+				$scope.current_focus = list.size() - 1;
+			}
+			list[$scope.current_focus].focus();
+		}
+
+		$scope.unfocus = function() {
+			var list = $('todo-item .todolist-item-container');
+			list[$scope.current_focus].blur();
+		}
 	}]);
 
 app.controller('TodoItemController', ['$scope', function($scope) {
