@@ -59,15 +59,9 @@ def after_login(resp):
     login_user(user, remember = remember_me)
     return redirect(request.args.get('next') or url_for('index'))
 
-#here we have database management functions
-@app.route('/uploadajax', methods=['POST'])
-def add_numbers():
-   pass
-
 @app.route('/get_tasks', methods=['POST'])
 def get_tasks():
 	args = json.loads(request.data)
-	print request.data
 	if args['user_id'] == "":
 		return jsonify(tasks=[])
 	tasks = models.Task.query.filter(models.Task.user_id == args['user_id'])

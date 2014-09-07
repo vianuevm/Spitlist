@@ -4,12 +4,12 @@
     <label for="checkbox-{{ item.task_id }}" class="css-label"></label>
   </div>
   <div class="inline description">
-    <div ng-hide="todoItem.editing" w-mousetrap="{'e': todoItem.startEditing()}" ng-click="todoItem.startEditing()">{{ item.desc }}</div>
-    <div ng-show="todoItem.editing"><input type="text" ng-model="item.desc"/></div>
+    <div ng-hide="todoItem.editing" ng-click="todoItem.startEditing()">{{ item.description }}</div>
+    <div ng-show="todoItem.editing"><input type="text" ng-model="item.description"/></div>
   </div>
   <div class="inline due_date">
-   <div ng-hide="todoItem.editing" w-mousetrap="{'e': todoItem.startEditing()}" ng-click="todoItem.startEditing()">{{ item.dueDate }}</div>
-   <div ng-show="todoItem.editing"><input type="text" ng-model="item.dueDate"/></div>
+   <div ng-hide="todoItem.editing" ng-click="todoItem.startEditing()">{{ item.due_date }}</div>
+   <div ng-show="todoItem.editing"><input type="text" ng-model="item.due_date"/></div>
   </div>
   <div class="inline delete_button">
     <button type="button" ng-click="deleteSpecificTodo(todoList, $index)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-danger btn-default">

@@ -4,50 +4,37 @@ app.config(['$routeProvider', function($routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl: '../static/main_todo.html',
-			controller: 'TodoController'
+			controller: 'TodoController',
+			resolve:  {
+				tasks: function(srvLibrary) {
+					return srvLibrary.getTasks();
+				},
+			}
 		});
+}]);
+
+app.factory('srvLibrary', ['$http', function($http) {
+	var sdo = {
+		getTasks: function() {
+			var promise = $http.post('/get_tasks', {user_id: 1}).success(function(data, status, headers, config) {
+               	return data;
+			});
+			return promise;
+		},
+	}
+	return sdo;
 }]);
 
 app.controller('TodoController', [
 	'$scope',
 	'$http',
-	function($scope, $http) {
+	'tasks',
+	function($scope, $http, tasks) {
 		$scope.taskId = 0;
 		$scope.inside = false;
 		$scope.sortOrder = 'date';
 		$scope.newItem = "";
-
-		$http.post('/get_tasks', {
-                  	user_id: 1,
-                }).success(function(data, status, headers, config) {
-                	console.log(data);
-                	$scope.todoList = data;
-				}).error(function(data, status, headers, config) {
-					alert('error');
-				});
-
-		// $scope.todoList = [
-		// 	{
-		// 		'desc' : 'Pick up a panda',
-		// 		'date' : new Date('12/23/2015'),
-		// 		'task_id' : $scope.taskId++,
-		// 	},
-		// 	{
-		// 		'desc' : 'Pick up a panda',
-		// 		'date' : new Date('12/23/2013'),
-		// 		'task_id' : $scope.taskId++,
-		// 	},
-		// 	{
-		// 		'desc' : 'Pick up a panda',
-		// 		'date' : new Date('12/23/2018'),
-		// 		'task_id' : $scope.taskId++,
-		// 	},
-		// 	{
-		// 		'desc' : 'Pick up a panda',
-		// 		'date' : new Date('12/23/2011'),
-		// 		'task_id' : $scope.taskId++,
-		// 	}
-		// ];
+		$scope.todoList = tasks.data.tasks;
 		$scope.colorCounter = 0;
 
 		$scope.escape = function() {
@@ -56,8 +43,6 @@ app.controller('TodoController', [
 			$scope.inside = true;
 		};
 
-
-		
 		$scope.create = function(user_id) {
 			if (!$scope.newItem) {
 				windowAlert("text field must be non-empty");
@@ -156,7 +141,6 @@ app.controller('TodoController', [
 
 app.controller('TodoItemController', ['$scope', function($scope) {
 	this.editing = false;
-	console.log($scope);
 	this.startEditing = function() {
 		this.editing = true;
 	};
