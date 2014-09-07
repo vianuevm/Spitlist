@@ -3,13 +3,13 @@
   <h1>SpitList</h1>
   <form ng-submit="addItem()">
     <fieldset>
-     <input ng-enter type="text" placeholder="Description..." size=50 ng-model="newItem" />
-     <input ng-enter placeholder="Complete by..." type="text" size=50 ng-model="newDate" />
+     <input ng-enter type="text" placeholder="Description..." size=50 ng-model="item_description" />
+     <input ng-enter placeholder="Complete by..." type="text" size=50 ng-model="new_date" />
      <br/>
      <br/> 
      <ul class="list-inline">
 	     <li>
-	     	<button type="button" ng-click="addTodo(newItem)" w-mousetrap="{'c': addTodo}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
+	     	<button type="button" ng-click="addTodo(item_description, new_date)" w-mousetrap="{'c': addTodo}"  class="btn btn-success btn-default"> <span class="glyphicon glyphicon-plus"></span></button>
 
 	     </li>
 	      <li>

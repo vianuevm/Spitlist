@@ -52,6 +52,7 @@ def after_login(resp):
         user = User(name = nickname, email = resp.email)
         db.session.add(user)
         db.session.commit()
+    session['user_id'] = user.id
     remember_me = False
     if 'remember_me' in session:
         remember_me = session['remember_me']
@@ -59,31 +60,31 @@ def after_login(resp):
     login_user(user, remember = remember_me)
     return redirect(request.args.get('next') or url_for('index'))
 
-@app.route('/get_tasks', methods=['POST'])
+@app.route('/get_tasks', methods=['GET'])
 def get_tasks():
-	args = json.loads(request.data)
-	if args['user_id'] == "":
+	print session['user_id']
+	if session['user_id'] == "":
 		return jsonify(tasks=[])
-	tasks = models.Task.query.filter(models.Task.user_id == args['user_id'])
+	tasks = models.Task.query.filter(models.Task.user_id == session['user_id'])
 	return jsonify(tasks=[task.serialize() for task in tasks])
 
 @app.route('/create', methods=['POST'])
 def create():
+	args = json.loads(request.data)
 	timestamp = datetime.utcnow()
-	due_date = datetime.fromtimestamp(float(request.form['due_date']))
-	is_complete = request.form['is_complete']
-	user_id = request.form['user_id']
-	description = request.form['description']
+	due_date = datetime.fromtimestamp(float(args['due_date']))
+	is_complete = args['is_complete']
+	user_id = session['user_id']
+	description = args['description']
 	task = models.Task(
 		description=description,
 		timestamp=timestamp,
 		is_complete=is_complete,
 		user_id=user_id,
 		due_date=due_date)
-	print task.due_date
 	db.session.add(task)
 	db.session.commit()
-	return jsonify(task=task.serialize())
+	return jsonify(task_id=task.task_id)
 
 @app.route('/edit_description', methods=['POST'])
 def edit():

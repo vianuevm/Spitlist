@@ -16,7 +16,7 @@ app.config(['$routeProvider', function($routeProvider){
 app.factory('srvLibrary', ['$http', function($http) {
 	var sdo = {
 		getTasks: function() {
-			var promise = $http.post('/get_tasks', {user_id: 1}).success(function(data, status, headers, config) {
+			var promise = $http.get('/get_tasks').success(function(data, status, headers, config) {
                	return data;
 			});
 			return promise;
@@ -43,37 +43,6 @@ app.controller('TodoController', [
 			$scope.inside = true;
 		};
 
-		$scope.create = function(user_id) {
-			if (!$scope.newItem) {
-				windowAlert("text field must be non-empty");
-			} else {
-				$http
-					.post('/create', {
-						item: $scope.newItem
-					})
-					.success(function(data, status, headers, config) {
-					if (data.success) {
-							$scope.retrieveLastNItems(
-							$scope.state.retrieveNr
-						);
-					} else {
-						windowAlert('Adding of item failed');
-					}
-					})
-					.error(function(data, status, headers, config) {
-					});
-			}
-
-			$.post('/create', {
-				description: 'descscription',
-				due_date: new Date().getTime() / 1000,
-				is_complete: 1,
-				user_id: user_id
-			}).done(function(task) {
-			console.log(task);
-		});
-		}
-
 		$scope.changeColor = function() {
 			
 			if($scope.colorCounter === 0)
@@ -99,35 +68,21 @@ app.controller('TodoController', [
 			}
 		};
 
-
-
-		$scope.addTodo = function() {
-			if (!$scope.newItem) {
-				windowAlert("text field must be non-empty");
-			} else {
-				$scope.todoList.push(
-					{
-						'desc' : $scope.newItem,
-						'date' : new Date('12/23/2001'),
-						'task_id' : $scope.taskId++
-					}
-				);
-				$http
-					.post('/create', {
-						item: $scope.newItem
-					})
-					.success(function(data, status, headers, config) {
-					if (data.success) {
-							$scope.retrieveLastNItems(
-							$scope.state.retrieveNr
-						);
-					} else {
-						windowAlert('Adding of item failed');
-					}
-					})
-					.error(function(data, status, headers, config) {
-					});
-			}
+		$scope.addTodo = function(item_description, new_date) {
+			if (!item_description)
+				return;
+			$http.post('/create', {
+				due_date: new_date,
+				description: item_description,
+				is_complete: 0,
+			}).success(function(data, status, headers, config) {
+				$scope.task_id = data.task_id;
+				$scope.todoList.push({
+					'description': item_description,
+					'due_date' : new_date,
+					'task_id' : $scope.task_id
+				});
+			});
 		};
 
 		$scope.deleteTodo = function(){
