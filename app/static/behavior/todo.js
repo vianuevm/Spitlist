@@ -47,6 +47,7 @@ app.controller('TodoController', [
 		$scope.edit_desciption = function() {
 			var div = document.activeElement;
 			var task_id = parseInt(div.getAttribute('task-id'));
+
 			if(!task_id)
 				return;
 			$http
@@ -58,7 +59,6 @@ app.controller('TodoController', [
 					console.log ("Success: " + task_id + " edited")
 				})
 			}	
-		}
 		$scope.next_week = function(){
 			var div = document.activeElement;
 			var task_id = parseInt(div.getAttribute('task-id'));
@@ -168,6 +168,29 @@ app.directive('ngEnter', function () {
     };
 });
 
+app.directive('ngEnter', function () {
+    return function ($scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+			if(event.which === 27) {
+				$('input').blur();
+			}
+
+            if(event.which === 13) {
+                $scope.$apply(function (){
+                	$scope.todoList.push(
+					{
+						'description' : $scope.item_description,
+						'due_date' : $scope.new_date
+					});
+
+                });
+                event.preventDefault();
+            } else {
+            	console.log(event.which);
+            }
+        });
+    };
+});
 app.directive('todoItem', function() {
 	return {
 		restrict: 'E',

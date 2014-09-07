@@ -1,4 +1,4 @@
-<div class="todolist-item-container clearfix" task-id="{{ item.task_id }}" tabIndex="{{ item.task_id }}">
+<div class="todolist-item-container clearfix" task-id="{{ item.task_id }}" tabIndex="{{ item.task_id }}" ng-click="todoItem.startEditing()" ng-enter="todoItem.startEditing()">
   <div class="inline checkbox">
     <input id="checkbox-{{ item.task_id }}" type="checkbox" class="css-checkbox">
     <label for="checkbox-{{ item.task_id }}" class="css-label"></label>
