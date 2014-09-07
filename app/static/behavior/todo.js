@@ -174,17 +174,10 @@ app.directive('ngEnter', function () {
 			if(event.which === 27) {
 				$('input').blur();
 			}
-
             if(event.which === 13) {
-                $scope.$apply(function (){
-                	$scope.todoList.push(
-					{
-						'description' : $scope.item_description,
-						'due_date' : $scope.new_date
-					});
-                	$scope.item_description = "";
-                	$scole.new_date = "";
-                });
+				$scope.addTodo($scope.item_description, $scope.new_date);
+            	$scope.item_description = "";
+            	$scope.new_date = "";
                 event.preventDefault();
             } else {
             	console.log(event.which);
