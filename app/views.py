@@ -1,5 +1,6 @@
 import os
 import time
+import json
 from flask import render_template, redirect, session, url_for, request, g, send_from_directory, jsonify, flash
 from app import app, db, models, lm, oid
 from datetime import datetime, timedelta
@@ -65,7 +66,11 @@ def add_numbers():
 
 @app.route('/get_tasks', methods=['POST'])
 def get_tasks():
-	tasks = models.Task.query.filter(models.Task.user_id == request.form['user_id'])
+	args = json.loads(request.data)
+	print request.data
+	if args['user_id'] == "":
+		return jsonify(tasks=[])
+	tasks = models.Task.query.filter(models.Task.user_id == args['user_id'])
 	return jsonify(tasks=[task.serialize() for task in tasks])
 
 @app.route('/create', methods=['POST'])

@@ -17,28 +17,37 @@ app.controller('TodoController', [
 		$scope.sortOrder = 'date';
 		$scope.newItem = "";
 
-		$scope.todoList = [
-			{
-				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2015'),
-				'task_id' : $scope.taskId++,
-			},
-			{
-				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2013'),
-				'task_id' : $scope.taskId++,
-			},
-			{
-				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2018'),
-				'task_id' : $scope.taskId++,
-			},
-			{
-				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2011'),
-				'task_id' : $scope.taskId++,
-			}
-		];
+		$http.post('/get_tasks', {
+                  	user_id: 1,
+                }).success(function(data, status, headers, config) {
+                	console.log(data);
+                	$scope.todoList = data;
+				}).error(function(data, status, headers, config) {
+					alert('error');
+				});
+
+		// $scope.todoList = [
+		// 	{
+		// 		'desc' : 'Pick up a panda',
+		// 		'date' : new Date('12/23/2015'),
+		// 		'task_id' : $scope.taskId++,
+		// 	},
+		// 	{
+		// 		'desc' : 'Pick up a panda',
+		// 		'date' : new Date('12/23/2013'),
+		// 		'task_id' : $scope.taskId++,
+		// 	},
+		// 	{
+		// 		'desc' : 'Pick up a panda',
+		// 		'date' : new Date('12/23/2018'),
+		// 		'task_id' : $scope.taskId++,
+		// 	},
+		// 	{
+		// 		'desc' : 'Pick up a panda',
+		// 		'date' : new Date('12/23/2011'),
+		// 		'task_id' : $scope.taskId++,
+		// 	}
+		// ];
 		$scope.colorCounter = 0;
 
 		$scope.escape = function() {
