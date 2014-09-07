@@ -12,6 +12,7 @@ app.controller('TodoController', [
 	'$scope',
 	'$http',
 	function($scope, $http) {
+		$scope.taskId = 0;
 		$scope.inside = false;
 		$scope.sortOrder = 'date';
 		$scope.newItem = "";
@@ -41,19 +42,23 @@ app.controller('TodoController', [
 		$scope.todoList = [
 			{
 				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2015')
+				'date' : new Date('12/23/2015'),
+				'task_id' : $scope.taskId++,
 			},
 			{
 				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2013')
+				'date' : new Date('12/23/2013'),
+				'task_id' : $scope.taskId++,
 			},
 			{
 				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2018')
+				'date' : new Date('12/23/2018'),
+				'task_id' : $scope.taskId++,
 			},
 			{
 				'desc' : 'Pick up a panda',
-				'date' : new Date('12/23/2011')
+				'date' : new Date('12/23/2011'),
+				'task_id' : $scope.taskId++,
 			}
 		];
 		$scope.colorCounter = 0;
@@ -128,11 +133,11 @@ app.controller('TodoController', [
 			if (!$scope.newItem) {
 				windowAlert("text field must be non-empty");
 			} else {
-				$scope.taskId++;
 				$scope.todoList.push(
 					{
 						'desc' : $scope.newItem,
-						'date' : new Date('12/23/2001')
+						'date' : new Date('12/23/2001'),
+						'task_id' : $scope.taskId++
 					}
 				);
 				$http
@@ -160,8 +165,23 @@ app.controller('TodoController', [
 		$scope.deleteSpecificTodo = function(todoList, index) {
 			todoList.splice(index, 1);
 		};
-
 	}]);
+
+app.controller('TodoItemController', ['$scope', function($scope) {
+	this.editing = false;
+	console.log($scope);
+	this.startEditing = function() {
+		this.editing = true;
+	};
+
+	this.submit = function() {
+		this.editing = false;
+	};
+
+	this.isEditing = function() {
+		return this.editing;
+	};
+}]);
 
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
@@ -171,4 +191,13 @@ app.directive('ngEnter', function () {
 			}
         });
     };
+});
+
+app.directive('todoItem', function() {
+	return {
+		restrict: 'E',
+		templateUrl: '../static/item.html',
+		controller: 'TodoItemController',
+		controllerAs: 'todoItem',
+	}
 });

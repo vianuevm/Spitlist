@@ -1,0 +1,19 @@
+<div class="todolist-item-container clearfix" tabindex="{{ item.task_id }}">
+  <div class="inline checkbox">
+    <input id="checkbox-{{ item.task_id }}" type="checkbox" class="css-checkbox">
+    <label for="checkbox-{{ item.task_id }}" class="css-label"></label>
+  </div>
+  <div class="inline description">
+    <div ng-hide="todoItem.editing" w-mousetrap="{'e': todoItem.startEditing()}" ng-click="todoItem.startEditing()">{{ item.desc }}</div>
+    <div ng-show="todoItem.editing"><input type="text" ng-model="item.desc"/></div>
+  </div>
+  <div class="inline due_date">
+   <div ng-hide="todoItem.editing" w-mousetrap="{'e': todoItem.startEditing()}" ng-click="todoItem.startEditing()">{{ item.dueDate }}</div>
+   <div ng-show="todoItem.editing"><input type="text" ng-model="item.dueDate"/></div>
+  </div>
+  <div class="inline delete_button">
+    <button type="button" ng-click="deleteSpecificTodo(todoList, $index)" w-mousetrap="{'shift+d': deleteTodo}"  class="btn btn-danger btn-default">
+     <span class="glyphicon glyphicon-minus"></span>
+    </button>
+  </div>
+</div>
