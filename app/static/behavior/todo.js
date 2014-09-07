@@ -12,8 +12,9 @@ app.controller('TodoController', [
 	'$scope',
 	'$http',
 	function($scope, $http) {
+		$scope.inside = false;
 		$scope.sortOrder = 'date';
-		$scope.newItem = "Starter";
+		$scope.newItem = "";
 		$scope.todoList = [
 			{
 				'desc' : 'Pick up a panda',
@@ -33,6 +34,46 @@ app.controller('TodoController', [
 			}
 		];
 		$scope.colorCounter = 0;
+
+		$scope.escape = function() {
+			$('input').focus();
+			$scope.newItem = "";
+			$scope.inside = true;
+		};
+
+
+		
+		$scope.create = function(user_id) {
+			if (!$scope.newItem) {
+				windowAlert("text field must be non-empty");
+			} else {
+				$http
+					.post('/create', {
+						item: $scope.newItem
+					})
+					.success(function(data, status, headers, config) {
+					if (data.success) {
+							$scope.retrieveLastNItems(
+							$scope.state.retrieveNr
+						);
+					} else {
+						windowAlert('Adding of item failed');
+					}
+					})
+					.error(function(data, status, headers, config) {
+					});
+			}
+
+			$.post('/create', {
+				description: 'descscription',
+				due_date: new Date().getTime() / 1000,
+				is_complete: 1,
+				user_id: user_id
+			}).done(function(task) {
+			console.log(task);
+		});
+		}
+
 		$scope.changeColor = function() {
 			
 			if($scope.colorCounter === 0)
@@ -61,13 +102,32 @@ app.controller('TodoController', [
 
 
 		$scope.addTodo = function() {
-			$scope.taskId++;
-			$scope.todoList.push(
-				{
-					'desc' : $scope.newItem,
-					'date' : new Date('12/23/2001')
-				}
-			);
+			if (!$scope.newItem) {
+				windowAlert("text field must be non-empty");
+			} else {
+				$scope.taskId++;
+				$scope.todoList.push(
+					{
+						'desc' : $scope.newItem,
+						'date' : new Date('12/23/2001')
+					}
+				);
+				$http
+					.post('/create', {
+						item: $scope.newItem
+					})
+					.success(function(data, status, headers, config) {
+					if (data.success) {
+							$scope.retrieveLastNItems(
+							$scope.state.retrieveNr
+						);
+					} else {
+						windowAlert('Adding of item failed');
+					}
+					})
+					.error(function(data, status, headers, config) {
+					});
+			}
 		};
 
 		$scope.deleteTodo = function(){
@@ -76,26 +136,16 @@ app.controller('TodoController', [
 
 		$scope.deleteSpecificTodo = function(todoList, index) {
 			todoList.splice(index, 1);
-		}
+		};
 
 	}]);
 
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                	scope.todoList.push(
-					{
-						'desc' : scope.newItem,
-						'dueDate' : 'now'
-					});
-
-                });
-                event.preventDefault();
-            } else {
-            	console.log(event.which);
-            }
+            if(event.which === 27) {
+				$('input').blur();
+			}
         });
     };
 });
