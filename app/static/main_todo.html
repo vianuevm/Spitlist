@@ -3,8 +3,8 @@
   <h1>SpitList</h1>
   <form ng-submit="addItem()">
     <fieldset>
-     <input ng-enter type="text" placeholder="Description..." size=50 ng-model="item_description" />
-     <input ng-enter placeholder="Complete by..." type="text" size=50 ng-model="new_date" />
+     <input id="description_input" class="add_item_input" ng-enter type="text" placeholder="Description..." size=50 ng-model="item_description" w-mousetrap="{'shift+enter': focus_main}"/>
+     <input id="complete_by_input" class="add_item_input" ng-enter placeholder="Complete by..." type="text" size=50 ng-model="new_date" />
      <br/>
      <br/> 
      <ul class="list-inline">

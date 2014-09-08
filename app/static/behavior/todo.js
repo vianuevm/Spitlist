@@ -140,6 +140,7 @@ app.controller('TodoController', [
 				task_id: task_id
 			}).success(function(data, status, headers, config) {
 				div.parentNode.removeChild(div);
+				$scope.prev();
 			});
 		};
 
@@ -185,17 +186,39 @@ app.controller('TodoController', [
 		$scope.unfocus = function() {
 			var list = $('todo-item .todolist-item-container');
 			list[$scope.current_focus].blur();
+			$scope.$broadcast('escapeEditing');
 		}
+
+		$scope.edit = function() {
+			console.log($scope);
+			var list = $('todo-item .todolist-item-container');
+			var task_id = list[$scope.current_focus].getAttribute('task-id');
+			$scope.$broadcast('editEvent', {task_id: task_id});
+		}
+
+		$scope.focus_main = function() {
+			var input = $('#description_input');
+			input[0].selectionStart = input[0].selectionEnd = input.val().length;
+		};
 	}]);
 
 app.controller('TodoItemController', ['$scope', function($scope) {
-	this.editing = false;
-	this.startEditing = function() {
-		this.editing = true;
+	$scope.editing = false;
+	$scope.startEditing = function() {
+		$scope.editing = true;
 	};
 
-	this.submit = function() {
-		this.editing = false;
+	$scope.$on('editEvent', function(data) {
+		console.log(this);
+		$scope.startEditing();
+	});
+
+	$scope.$on('escapeEditing', function(data) {
+		$scope.submit();
+	});
+
+	$scope.submit = function() {
+		$scope.editing = false;
 	};
 }]);
 

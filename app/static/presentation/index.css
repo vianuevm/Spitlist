@@ -9,9 +9,35 @@ body
   background-size: cover;
 }
 
+h1 {
+	font-family: 'Lato', serif;
+}
 
 input {
 	color: black;
+}
+
+fieldset {
+	width: 80%;
+}
+
+fieldset input.add_item_input {
+	display:inline-block;
+	float: left;
+	height: 40px;
+	margin-bottom: 10px;
+	line-height: 30px;
+	font-size: 20px;
+	padding-left: 20px;
+}
+
+#description_input {
+	width: 60%;
+}
+
+#complete_by_input {
+	margin-left: 5%;
+	width: 35%;
 }
 
 select {
