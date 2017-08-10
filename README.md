@@ -3,7 +3,7 @@ Spitlist
 
 Rapid fire todo list for productivity.
 
-##Setup for Web Development
+## Setup for Web Development
 
 * Download pip the package manager.
 > http://pip.readthedocs.org/en/latest/installing.html
